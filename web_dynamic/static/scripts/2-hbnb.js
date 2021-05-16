@@ -10,11 +10,12 @@ $(document).ready(function () {
     let content = Object.keys(objs)
     console.log(content)
     $(".amenities h4").text(content)
+
+
+    $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
+      if (data.status === OK) {
+        $("#api_status").addClass("available")
+      }
+    });
   });
 });
-
-$.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
-  if (data.status === OK) {
-    $("#api_status").addClass("available")
-  }
-})

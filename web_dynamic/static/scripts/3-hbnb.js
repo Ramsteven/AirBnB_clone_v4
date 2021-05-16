@@ -10,42 +10,42 @@ $(document).ready(function () {
     let content = Object.keys(objs)
     console.log(content)
     $(".amenities h4").text(content)
-  });
-});
 
-$.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
-  if (data.status === OK) {
-    $("#api_status").addClass("available")
-  }
-});
+    $.get('http://0.0.0.0:5001/api/v1/status/', function (data) {
+      if (data.status === OK) {
+        $("#api_status").addClass("available")
+      }
+    });
 
-$.ajax({
-  url: "http://0.0.0.0:5001/api/v1/places_search/",
-  type: "POST",
-  success: function(data) {
-    for (const place of data) {
-      let place_ = `<article>
+    $.ajax({
+      url: "http://0.0.0.0:5001/api/v1/places_search/",
+      type: "POST",
+      success: function (data) {
+        for (const place of data) {
+          let place_ = `<article>
                       <div class="title_box">
-                          <h2>${ place.name }</h2>
-                          <div class="price_by_night">${ place.price_by_night }</div>
+                          <h2>${place.name}</h2>
+                          <div class="price_by_night">${place.price_by_night}</div>
                       </div>
                       <div class="information">
-                          <div class="max_guest">${ place.max_guest } Guest{% if place.max_guest != 1 %}s{% endif %}</div>
-                          <div class="number_rooms">${ place.number_rooms } Bedroom{% if place.number_rooms != 1 %}s{% endif
+                          <div class="max_guest">${place.max_guest} Guest{% if place.max_guest != 1 %}s{% endif %}</div>
+                          <div class="number_rooms">${place.number_rooms} Bedroom{% if place.number_rooms != 1 %}s{% endif
                               %}</div>
-                          <div class="number_bathrooms">${ place.number_bathrooms } Bathroom{% if place.number_bathrooms != 1
+                          <div class="number_bathrooms">${place.number_bathrooms} Bathroom{% if place.number_bathrooms != 1
                               %}s{% endif %}</div>
                       </div>
                       <div class="user">
-                          <b>Owner:</b> ${ place.user.first_name } ${ place.user.last_name }
+                          <b>Owner:</b> ${place.user.first_name} ${place.user.last_name}
                       </div>
                       <div class="description">
-                          ${ place.description | safe }
+                          ${place.description | safe}
                       </div>
                     </article>`;
-      $('SECTION.places').append(place_);
-    }
-  }
+          $('SECTION.places').append(place_);
+        }
+      }
   data = JSON.stringify({}),
-  headers: { 'Content-Type': 'application/json' }
-})
+      headers: { 'Content-Type': 'application/json' }
+    });
+  });
+});
